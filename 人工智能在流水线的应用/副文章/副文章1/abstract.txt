@@ -1,0 +1,1 @@
+A news-style case study of AI visual inspection systems deployed in Shenzhen's electronics factories, where deep-learning models now catch microscopic defects at superhuman speed. The article examines both the dramatic quality improvements and the human cost of eliminating tens of thousands of inspection jobs.

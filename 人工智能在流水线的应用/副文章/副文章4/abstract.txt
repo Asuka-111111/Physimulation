@@ -1,0 +1,1 @@
+An introduction to digital twin technology — real-time virtual replicas of physical factories that predict failures and optimize production before problems occur. The article traces the concept from NASA spacecraft simulations to modern smart factories and explores the emerging integration with generative AI for self-optimizing production lines.
