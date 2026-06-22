@@ -49,7 +49,9 @@ tailwind.config = {
         "tertiary-container": "#b44200", 
         "tertiary-fixed-dim": "#ffb598",
         "on-background": "#1a1b23", 
-        "on-primary-fixed": "#001551"
+        "on-primary-fixed": "#001551",
+        "brand-navy": "#121C28",
+        "accent": "#0D9488"
       },
       borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
       spacing: {

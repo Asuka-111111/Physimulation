@@ -1,0 +1,15 @@
+{
+  "keyTerms": {
+    "digital twin": "A continuously updated virtual replica of a physical factory, fed by thousands of real-time sensors",
+    "Siemens Amberg": "Siemens's flagship electronics plant in Germany, a leading example of digital-twin deployment in manufacturing",
+    "predictive simulation": "The capability of a digital twin to forecast future states — failure, bottlenecks, quality drift — before they occur",
+    "generative AI integration": "The emerging fusion of digital twins with AI that can autonomously propose and simulate factory improvements",
+    "self-optimizing system": "A factory that continuously monitors, simulates, and adjusts its own operations toward maximum efficiency"
+  },
+  "author": [
+    "Dr. Hans Weber",
+    "Aiko Tanaka",
+    "Marcus Osei",
+    "Isabelle Girard"
+  ]
+}

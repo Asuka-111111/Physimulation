@@ -1,0 +1,15 @@
+{
+  "keyTerms": {
+    "defect escape rate": "The number of defective units that reach the customer, measured in parts per million — a key quality metric",
+    "transformer architecture": "The deep-learning model design originally developed for language processing, now adapted for pixel-level visual inspection",
+    "zero-shot defect detection": "The ability of AI inspection systems to identify anomalies they were never explicitly trained to recognize",
+    "Foxconn Longhua": "Foxconn's flagship manufacturing campus in Shenzhen, a major site of AI-driven automation deployment",
+    "grindhouse cinema": "Urban theaters in 1970s America that screened low-budget martial arts and exploitation films, introducing kung fu to Western audiences"
+  },
+  "author": [
+    "Chen Meiling",
+    "David Okonkwo",
+    "Svetlana Orlova",
+    "Miguel Torres"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "keyTerms": {
+    "predictive maintenance": "AI-driven monitoring that forecasts equipment failures days or weeks in advance using sensor data patterns",
+    "computer vision inspection": "Deep-learning systems that detect microscopic manufacturing defects at production-line speed without fatigue",
+    "generative design": "AI algorithms that produce thousands of optimized part geometries from a set of engineering constraints",
+    "collaborative robots": "Robots designed to work alongside humans rather than in isolated cages, combining machine precision with human oversight",
+    "digital twin": "A real-time virtual replica of a physical system used for simulation, prediction, and optimization"
+  },
+  "author": [
+    "Dr. Raymond Cho",
+    "Valentina Kowalski",
+    "Kenji Matsumoto",
+    "Priya Nair"
+  ]
+}
