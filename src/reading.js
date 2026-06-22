@@ -4,13 +4,13 @@ async function init() {
   if (!articlePath) return;
 
   const dir = articlePath.replace(/\/article\.md$/, '');
-  const base = '../';
+  const GITHUB_RAW = 'https://raw.githubusercontent.com/Artificial-rhapsody/AI-random-content-test/main';
 
   const [{ topics }, config, md, addition] = await Promise.all([
     fetch('articles.json').then(r => r.json()),
     fetch('site.json').then(r => r.json()),
-    fetch(base + articlePath).then(r => r.text()),
-    fetch(base + dir + '/addition.json').then(r => r.json()).catch(() => ({})),
+    fetch(`${GITHUB_RAW}/${articlePath}`).then(r => r.text()),
+    fetch(`${GITHUB_RAW}/${dir}/addition.json`).then(r => r.json()).catch(() => ({})),
   ]);
 
   // Populate brand
@@ -39,8 +39,9 @@ async function init() {
   document.getElementById('bc-topic').textContent = topic;
   document.getElementById('bc-article').textContent = title;
   document.getElementById('article-title').textContent = title;
-  document.getElementById('hero-img').src =
-    article?.coverUrl || `https://picsum.photos/seed/${encodeURIComponent(articlePath)}/1920/800`;
+  const rawCover = article?.coverUrl?.replace(/github\.com\/(.*?)\/tree\//, 'raw.githubusercontent.com/$1/')
+    || `https://picsum.photos/seed/${encodeURIComponent(articlePath)}/1920/800`;
+  document.getElementById('hero-img').src = rawCover;
 
   // Authors
   const authors = addition.author || [];
@@ -58,13 +59,16 @@ async function init() {
       <p class="font-body-md text-body-md text-on-surface-variant text-sm">${def}</p>
     </div>`).join('');
 
-  // Related articles
-  document.getElementById('related-articles').innerHTML = related.map(r => `
+  // Related articles — fetch H1 titles in parallel
+  const relatedTitles = await Promise.all(
+    related.map(r => fetch(`${GITHUB_RAW}/${r.articlePath}`).then(res => res.text()).then(extractTitle).catch(() => r.name))
+  );
+  document.getElementById('related-articles').innerHTML = related.map((r, i) => `
     <div class="border border-outline/30 p-6 hover:bg-surface-container-low transition-colors group cursor-pointer relative"
          onclick="location.href='reading.html?path=${encodeURIComponent(r.articlePath)}'">
       <div class="grid-intersection"></div>
       <div class="font-caption text-caption text-on-surface-variant uppercase mb-4 tracking-widest">${topic}</div>
-      <h3 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors">${extractTitleFromAbstract(r)}</h3>
+      <h3 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors">${relatedTitles[i]}</h3>
       <p class="font-body-md text-body-md text-on-surface-variant mb-6 text-sm line-clamp-3">${r.abstract}</p>
       <div class="font-label-md text-label-md text-accent uppercase flex items-center">
         Read Report <span class="material-symbols-outlined ml-2 text-[18px] group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
@@ -75,12 +79,6 @@ async function init() {
 function extractTitle(md) {
   const m = md.match(/^#\s+(.+)$/m);
   return m ? m[1].trim() : 'Article';
-}
-
-function extractTitleFromAbstract(article) {
-  // Use name if it's not a generic sub-article label, otherwise use first sentence of abstract
-  if (!/^副文章\d+$/.test(article.name) && !/^[A-Za-z]+$/.test(article.name)) return article.name;
-  return article.abstract.split('.')[0];
 }
 
 function esc(s) {
