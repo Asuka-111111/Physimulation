@@ -8,7 +8,7 @@ async function init() {
   const GITHUB_RAW = config.githubRaw;
 
   const [{ topics }, md, addition] = await Promise.all([
-    fetch('articles.json').then(r => r.json()),
+    fetch('./articles.json').then(r => r.json()),
     fetch(`${GITHUB_RAW}/${articlePath}`).then(r => r.text()),
     fetch(`${GITHUB_RAW}/${dir}/addition.json`).then(r => r.json()).catch(() => ({})),
   ]);

@@ -1,7 +1,7 @@
 async function render() {
   const [{ topics }, config] = await Promise.all([
-    fetch('articles.json').then(r => r.json()),
-    fetch('site.json').then(r => r.json()),
+    fetch('./articles.json').then(r => r.json()),
+    fetch('./site.json').then(r => r.json()),
   ]);
 
   const get = (obj, path) => path.split('.').reduce((o, k) => o?.[k], obj);

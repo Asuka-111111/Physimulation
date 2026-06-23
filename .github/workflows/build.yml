@@ -18,8 +18,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Copy website files       
-        run: cp -r src/. dist/
+      - name: Prepare dist
+        run: |
+          mkdir -p dist
+          cp -r src/. dist/
 
       - name: Generate articles.json
         run: node scripts/build.js
