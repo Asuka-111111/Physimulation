@@ -4,7 +4,7 @@ const path = require('path')
 // ── 配置 ──────────────────────────────────────────────────
 const CONTENT_DIR = './Content'        // 内容根目录
 const OUTPUT_DIR  = './dist'           // 输出目录
-const REPO_RAW_BASE = 'https://github.com/Artificial-rhapsody/AI-random-content-test/tree/main'
+const REPO_RAW_BASE = 'https://github.com/Asuka-111111/Physimulation/tree/main'
 // ─────────────────────────────────────────────────────────
 
 /**
