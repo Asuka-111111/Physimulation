@@ -22,4 +22,21 @@ The challenges are real. Visa restrictions have tightened. Some families now vie
 ---
 
 *Cover image: The campus as a meeting ground of civilizations.*
-https://physicssimulation-yj2mgudqsngecmcp3dnhvu.streamlit.app/
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的 Streamlit 应用</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+    <iframe src="https://https://physicssimulation-yj2mgudqsngecmcp3dnhvu.streamlit.app/?embed=true"></iframe>
+</body>
+</html>
+\`\`\`
