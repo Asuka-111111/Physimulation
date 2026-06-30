@@ -22,3 +22,4 @@ The challenges are real. Visa restrictions have tightened. Some families now vie
 ---
 
 *Cover image: The campus as a meeting ground of civilizations.*
+https://physicssimulation-yj2mgudqsngecmcp3dnhvu.streamlit.app/
