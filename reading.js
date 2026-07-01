@@ -74,6 +74,12 @@ async function init() {
         Read Report <span class="material-symbols-outlined ml-2 text-[18px] group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
       </div>
     </div>`).join('');
+//新内容
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    window.MathJax.typesetPromise().catch((err) => console.error('MathJax error:', err));
+  }
+
+  
 }
 
 function extractTitle(md) {
@@ -115,6 +121,23 @@ function parseMd(md, imgBase) {
       while (i < lines.length && !lines[i].startsWith('```')) code += lines[i++] + '\n';
       html += `<div class="pl-6 border-l-4 border-accent my-6 font-mono text-sm text-on-surface-variant whitespace-pre-wrap">${esc(code.trim())}</div>`;
       i++; continue;
+    }
+//新内容
+    if (line.trim() === '$$') {
+      let mathCode = '$$';
+      i++;
+      // 一直往下读，直到遇到闭合的 $$
+      while (i < lines.length && lines[i].trim() !== '$$') {
+        mathCode += '\n' + lines[i];
+        i++;
+      }
+      if (i < lines.length) {
+        mathCode += '\n$$';
+        i++; // 跳过闭合的 $$
+      }
+      // 将完整的公式块放入一个 div 中，避免被 p 标签切碎
+      html += `<div class="my-6 overflow-x-auto text-center">${esc(mathCode)}</div>`;
+      continue;
     }
 
     // Unordered list (-, *, +)
