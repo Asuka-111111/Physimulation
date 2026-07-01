@@ -8,9 +8,9 @@
 In the magnetic field, a charged particle will exoerience an external force called the *Lorentz force*, which will alter its trajectory into circular motion.
 The function of the Lorentz force is
 $$
-\vec{F} = q (\vec{v} \times \vec{B}) 
-$$ 
-
+\vec{F} = q (\vec{v} \times \vec{B})
+$$
+The gyrofrequency can therefore be calculated as: $$  \omega = \frac{q B}{m}  $$
 
 ---
 
