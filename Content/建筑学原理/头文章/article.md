@@ -10,7 +10,10 @@ The function of the Lorentz force is
 $$
 \vec{F} = q (\vec{v} \times \vec{B})
 $$
-The gyrofrequency can therefore be calculated as: $$  \omega = \frac{q B}{m}  $$
+The gyrofrequency can therefore be calculated as: 
+$$  
+\omega = \frac{q B}{m}  
+$$
 
 ---
 
