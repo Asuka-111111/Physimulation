@@ -18,10 +18,10 @@ m \dot{v}_z = 0
 \end{cases}
 $$
 
-The gyrofrequency can therefore be calculated as: 
-$$  
-\omega = \frac{q B}{m}  
-$$
+Therefore, The particle will move at constant velocity parallel to the magnetic field in *z* direction. 
+
+
+The cyclotron frequency can  be calculated as: $  \omega = \frac{q B}{m}  $
 
 ---
 
