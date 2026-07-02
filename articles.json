@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-02T01:58:24.004Z",
+  "generatedAt": "2026-07-02T02:37:55.279Z",
   "topics": [
     {
       "topicName": "建筑学原理",
       "main": {
         "name": "建筑学原理",
         "abstract": "This article demonstrates the trail and motion of a charged particle in a uniform magnetic field in three-dimensional space.",
-        "coverUrl": null,
+        "coverUrl": "https://github.com/Asuka-111111/Physimulation/tree/main/Content/建筑学原理/头文章/cover.jpg",
         "articlePath": "Content/建筑学原理/头文章/article.md"
       },
       "subs": [
