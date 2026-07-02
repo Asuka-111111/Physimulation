@@ -74,12 +74,6 @@ async function init() {
         Read Report <span class="material-symbols-outlined ml-2 text-[18px] group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
       </div>
     </div>`).join('');
-//新内容
-  if (window.MathJax && window.MathJax.typesetPromise) {
-    window.MathJax.typesetPromise().catch((err) => console.error('MathJax error:', err));
-  }
-
-  
 }
 
 function extractTitle(md) {
@@ -92,7 +86,23 @@ function esc(s) {
 }
 
 function inline(s, imgBase) {
-  return s
+  // Extract $...$ inline math before HTML escaping to protect LaTeX special chars
+  const mathSlots = [];
+  s = s.replace(/\$([^\$\n]+?)\$/g, (_, latex) => {
+    const idx = mathSlots.length;
+    if (typeof katex !== 'undefined') {
+      try {
+        mathSlots.push(katex.renderToString(latex.trim(), { throwOnError: false }));
+      } catch (e) {
+        mathSlots.push(`<span class="font-mono text-sm text-on-surface-variant">$${esc(latex)}$</span>`);
+      }
+    } else {
+      mathSlots.push(`<span class="font-mono text-sm">$${latex}$</span>`);
+    }
+    return `\x00m${idx}\x00`;
+  });
+
+  s = s
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
       const url = /^https?:\/\//.test(src) ? src : `${imgBase}/${src}`;
@@ -103,6 +113,9 @@ function inline(s, imgBase) {
     .replace(/\*(.+?)\*/g, '<em>$1</em>')
     .replace(/~~(.+?)~~/g, '<del>$1</del>')
     .replace(/`([^`]+)`/g, '<code class="bg-surface-container-low px-1 font-mono text-sm">$1</code>');
+
+  // Restore KaTeX-rendered math
+  return s.replace(/\x00m(\d+)\x00/g, (_, i) => mathSlots[+i]);
 }
 
 function parseMd(md, imgBase) {
@@ -114,6 +127,18 @@ function parseMd(md, imgBase) {
   while (i < lines.length) {
     const line = lines[i];
 
+    // Display math block $$ ... $$
+    if (line.trimEnd() === '$$') {
+      let latex = '';
+      i++;
+      while (i < lines.length && lines[i].trimEnd() !== '$$') latex += lines[i++] + '\n';
+      const rendered = typeof katex !== 'undefined'
+        ? katex.renderToString(latex.trim(), { displayMode: true, throwOnError: false })
+        : `<pre class="font-mono text-sm overflow-x-auto">${esc(latex.trim())}</pre>`;
+      html += `<div class="my-8 overflow-x-auto text-center">${rendered}</div>`;
+      i++; continue;
+    }
+
     // Fenced code block → left-border block
     if (line.startsWith('```')) {
       let code = '';
@@ -121,23 +146,6 @@ function parseMd(md, imgBase) {
       while (i < lines.length && !lines[i].startsWith('```')) code += lines[i++] + '\n';
       html += `<div class="pl-6 border-l-4 border-accent my-6 font-mono text-sm text-on-surface-variant whitespace-pre-wrap">${esc(code.trim())}</div>`;
       i++; continue;
-    }
-//新内容
-    if (line.trim() === '$$') {
-      let mathCode = '$$';
-      i++;
-      // 一直往下读，直到遇到闭合的 $$
-      while (i < lines.length && lines[i].trim() !== '$$') {
-        mathCode += '\n' + lines[i];
-        i++;
-      }
-      if (i < lines.length) {
-        mathCode += '\n$$';
-        i++; // 跳过闭合的 $$
-      }
-      // 将完整的公式块放入一个 div 中，避免被 p 标签切碎
-      html += `<div class="my-6 overflow-x-auto text-center">${esc(mathCode)}</div>`;
-      continue;
     }
 
     // Unordered list (-, *, +)
@@ -160,13 +168,61 @@ function parseMd(md, imgBase) {
       continue;
     }
 
-    if      (line.startsWith('#### ')) html += `<h4 class="font-headline-sm text-headline-sm text-brand-navy mt-8 mb-3">${inline(line.slice(5), imgBase)}</h4>`;
-    else if (line.startsWith('### '))  html += `<h3 class="font-headline-md text-headline-md text-brand-navy mt-10 mb-4">${inline(line.slice(4), imgBase)}</h3>`;
-    else if (line.startsWith('## '))   html += `<h2 class="font-headline-lg text-headline-lg text-brand-navy mt-12 mb-6 border-b border-outline/20 pb-4">${inline(line.slice(3), imgBase)}</h2>`;
-    else if (line.startsWith('# '))    { /* title already in header */ }
-    else if (line.startsWith('> '))    html += `<blockquote class="my-12 pl-6 border-l-[4px] border-accent py-2"><p class="font-headline-md text-headline-md text-brand-navy italic">${inline(line.slice(2), imgBase)}</p></blockquote>`;
+    // GFM table — starts with |
+    if (line.startsWith('|')) {
+      const rows = [];
+      while (i < lines.length && lines[i].startsWith('|')) rows.push(lines[i++]);
+
+      const parseRow = r => r.split('|').slice(1, -1).map(c => c.trim());
+      const isSep    = r => /^\|[\s|:-]+\|$/.test(r.trim()) && r.includes('---');
+      const colAlign = c => {
+        const s = c.trim();
+        if (s.startsWith(':') && s.endsWith(':')) return 'text-center';
+        if (s.endsWith(':')) return 'text-right';
+        return 'text-left';
+      };
+
+      // Expect: header row, separator row, then body rows
+      if (rows.length >= 2 && isSep(rows[1])) {
+        const headers = parseRow(rows[0]);
+        const aligns  = parseRow(rows[1]).map(colAlign);
+        const body    = rows.slice(2);
+
+        const ths = headers.map((h, ci) =>
+          `<th class="font-label-md text-label-md text-brand-navy uppercase tracking-wide px-4 py-3 border-r border-outline/20 last:border-r-0 ${aligns[ci] ?? 'text-left'}">${inline(h, imgBase)}</th>`
+        ).join('');
+
+        const trs = body.map(r => {
+          const cells = parseRow(r);
+          const tds = headers.map((_, ci) =>
+            `<td class="font-body-md text-body-md text-on-surface px-4 py-3 border-r border-outline/20 last:border-r-0 ${aligns[ci] ?? 'text-left'}">${inline(cells[ci] ?? '', imgBase)}</td>`
+          ).join('');
+          return `<tr class="border-b border-outline/10 last:border-b-0 hover:bg-surface-container-low transition-colors">${tds}</tr>`;
+        }).join('');
+
+        html += `
+          <div class="overflow-x-auto my-8 border border-outline/20">
+            <table class="w-full text-sm border-collapse">
+              <thead class="bg-surface-container-low border-b border-outline/20">
+                <tr>${ths}</tr>
+              </thead>
+              <tbody>${trs}</tbody>
+            </table>
+          </div>`;
+      } else {
+        // Malformed — fall back to plain text
+        rows.forEach(r => { html += `<p class="font-body-md text-body-md mb-6 leading-relaxed">${inline(r, imgBase)}</p>`; });
+      }
+      continue;
+    }
+
+    if (line.startsWith('#### ')) html += `<h4 class="font-headline-sm text-headline-sm text-brand-navy mt-8 mb-3">${inline(line.slice(5), imgBase)}</h4>`;
+    else if (line.startsWith('### ')) html += `<h3 class="font-headline-md text-headline-md text-brand-navy mt-10 mb-4">${inline(line.slice(4), imgBase)}</h3>`;
+    else if (line.startsWith('## ')) html += `<h2 class="font-headline-lg text-headline-lg text-brand-navy mt-12 mb-6 border-b border-outline/20 pb-4">${inline(line.slice(3), imgBase)}</h2>`;
+    else if (line.startsWith('# ')) { /* title already in header */ }
+    else if (line.startsWith('> ')) html += `<blockquote class="my-12 pl-6 border-l-[4px] border-accent py-2"><p class="font-headline-md text-headline-md text-brand-navy italic">${inline(line.slice(2), imgBase)}</p></blockquote>`;
     else if (/^-{3,}$/.test(line.trim())) html += `<hr class="border-t border-outline/20 my-8" />`;
-    else if (line.trim() === '')       { /* skip */ }
+    else if (line.trim() === '') { /* skip */ }
     else html += `<p class="font-body-md text-body-md mb-6 leading-relaxed">${inline(line, imgBase)}</p>`;
 
     i++;
