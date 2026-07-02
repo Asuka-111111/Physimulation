@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-02T01:49:44.109Z",
+  "generatedAt": "2026-07-02T01:51:30.267Z",
   "topics": [
     {
       "topicName": "建筑学原理",
       "main": {
         "name": "建筑学原理",
         "abstract": "This article traces the evolution of architectural principles from Vitruvius's ancient triad of strength, utility, and beauty through Modernism and Postmodernism to today's imperatives of sustainability, resilience, and inclusivity. It argues that great architecture is a conversation with its site — a response to light, wind, history, and culture.",
-        "coverUrl": "https://github.com/Asuka-111111/Physimulation/tree/main/Content/建筑学原理/头文章/cover.jpg",
+        "coverUrl": null,
         "articlePath": "Content/建筑学原理/头文章/article.md"
       },
       "subs": [
