@@ -1,7 +1,7 @@
 # Particle Movement in Magnetic Field
 
 > **Category:** Overview | **Words:** ~850  
-> **Cover:** ![Cover](particlemovinginmagneticfield.jpg)
+> **Cover:** ![Cover](cover.jpg)
 
 ---
 
