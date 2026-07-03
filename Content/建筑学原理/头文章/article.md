@@ -15,7 +15,11 @@ where
 * $\vec{v}$ is the velocity of the particle
 * $\vec{B}$ is the magnetic field
 * $\vec{F}$ is the Lorentz force exerted on the particle
-Assuming there is a constant uniform magnetic field $  \vec{B} = B \hat{z}  $, the equation of motion is derived as: $m \frac{d\vec{v}}{dt} = q (\vec{v} \times \vec{B})$.
+
+The initial velocity $\vec{v}_0$ can be seen as the vector sum of the velocities parallel to the magnetic field $\vec{v}_{\parallel}$ and perpendicular to the magnetic field $\vec{v}_{\perp}$.
+
+
+Assuming the constant uniform magnetic field is $  \vec{B} = B \hat{z}  $, the equation of motion is derived as: $m \frac{d\vec{v}}{dt} = q (\vec{v} \times \vec{B})$.
 In component form, 
 
 Therefore, The particle will move at constant velocity parallel to the magnetic field in *z* direction. 
