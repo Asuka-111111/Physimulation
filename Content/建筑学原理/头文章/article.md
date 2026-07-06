@@ -1,5 +1,6 @@
 # Particle Movement in Magnetic Field
-  
+
+> **Category:** Essay | **Words:** ~600   
 > **Cover:** ![Cover](cover.jpg)
 
 ---
