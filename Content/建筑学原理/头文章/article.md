@@ -1,6 +1,5 @@
 # Particle Movement in Magnetic Field
-
-> **Category:** Overview | **Words:** ~850  
+  
 > **Cover:** ![Cover](cover.jpg)
 
 ---
@@ -23,7 +22,7 @@ $$
 v_{\parallel} = v \cos\theta
 $$
 Since it is parallel with the magnetic induction line, the component force is $q(v_{\parallel} \times B) = 0$, according to Newton's first law of motion, the particle maintains a constant linesar motion in the *z* direction.
-The compoonent velocity that is perpendicular to the magnetic field:
+The component velocity that is perpendicular to the magnetic field:
 $$
 v_{\perp} = v \sin\theta
 $$
