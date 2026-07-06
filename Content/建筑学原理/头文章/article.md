@@ -26,7 +26,7 @@ The component velocity that is perpendicular to the magnetic field:
 $$
 v_{\perp} = v \sin\theta
 $$
-In the *x-y* surface, the component force is always in the direction perpendicular to the velocity, therefore acting as a centripetal force. The particle maintains circular motion in the *x-y* direction.
+In the *x-y* surface, the component force is always in the direction perpendicular to the velocity, therefore acting as a centripetal force $F = m\frac{v^2}{r}$. The particle maintains circular motion in the *x-y* direction.
 
 ## 3. Circular Motion
 Combining both functions:
