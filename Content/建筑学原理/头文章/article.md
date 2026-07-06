@@ -34,10 +34,18 @@ Combining both functions:
 $$
 q v_{\perp} B = m \frac{v_{\perp}^2}{R}
 $$
-The cyclotron radius $R$ is 
-
-
-The cyclotron frequency can  be calculated as: $\omega = \frac{q B}{m}$
+The cyclotron radius $R$ is：
+$$
+R = \frac{m v_{\perp}}{q B} = \frac{m v \sin\theta}{q B}
+$$
+The period $T$ is:
+$$
+T = \frac{2\pi R}{v_{\perp}} = \frac{2\pi m}{q B}
+$$
+The pitch of the particle is:
+$$
+d = v_{\parallel} T = (v \cos\theta) \left( \frac{2\pi m}{q B} \right) = \frac{2\pi m v \cos\theta}{q B}
+$$
 
 ---
 
