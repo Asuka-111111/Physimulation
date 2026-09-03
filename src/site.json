@@ -2,13 +2,13 @@
   "brand": "BAO.J.Z",
   "tagline": "Intelligence for the Next Decade",
   "sectionTitle": "Perspectives",
-  "slogan": "We bring together deep industry expertise and leading-edge technology to help you shape the future.",
+  "slogan": "Delving in the fascinating world of physics",
   "github": "https://github.com/Asuka-111111/Physimulation",
   "githubRaw": "https://raw.githubusercontent.com/Asuka-111111/Physimulation/main",
   "heroImage": "https://picsum.photos/seed/arch-hero/1920/800",
   "quote": {
-    "text": "TO BE OR NOT TO BE, THAT IS A QUESTION",
-    "author": "——Hamlet"
+    "text": "I have no special talent. I am only passionately curious",
+    "author": "——Albert Einstein"
   },
   "socials": [
     { "label": "Twitter",   "url": "#" },
