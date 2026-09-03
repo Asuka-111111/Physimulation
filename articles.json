@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T07:17:34.828Z",
+  "generatedAt": "2026-09-03T07:18:31.381Z",
   "topics": [
     {
       "topicName": "建筑学原理",
@@ -13,7 +13,7 @@
         {
           "name": "副文章1",
           "abstract": "An essay exploring architecture as a non-verbal language that shapes emotion and behavior through materials, proportions, and light. From the awe-inspiring verticality of Gothic cathedrals to the oppressive weight of fascist buildings, the piece examines how structures speak — and sometimes lie — without words.",
-          "coverUrl": null,
+          "coverUrl": "https://github.com/Asuka-111111/Physimulation/tree/main/Content/建筑学原理/副文章/副文章1/cover.jpg",
           "articlePath": "Content/建筑学原理/副文章/副文章1/article.md"
         },
         {
