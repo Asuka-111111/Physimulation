@@ -48,8 +48,7 @@ d = v_{\parallel} T = (v \cos\theta) \left( \frac{2\pi m}{q B} \right) = \frac{2
 $$
 
 ## 4. Visualization
-Tap the link below to see demonstration.
-https://physicssimulation-zgfugwmkhk2e2gfsz5vls6.streamlit.app/
+[Tap the link to see demonstration](https://physicssimulation-zgfugwmkhk2e2gfsz5vls6.streamlit.app/)
 
 ---
 
